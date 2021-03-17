@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="05_dynamic_proxy" />
+        <module name="08_log4j2" />
+        <module name="01_base_inject" />
+        <module name="10_web" />
+        <module name="09_mybatis" />
+        <module name="03_factorybean" />
+        <module name="06_jdbc_template" />
+        <module name="04_annotation" />
+        <module name="07_transaction" />
+        <module name="02_set_inject" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="01_test" target="15" />
+      <module name="03_factorbean" target="15" />
+      <module name="06_jdbc_templete" target="15" />
+      <module name="log4j2" target="15" />
+      <module name="springmvc" target="15" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

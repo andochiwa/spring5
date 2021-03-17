@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--集合类型属性的注入-->
+    <bean id="student" class="com.me.collectiontype.Student">
+        <!--数组类型的属性注入-->
+        <property name="courses">
+            <array>
+                <value>java</value>
+                <value>数据库</value>
+                <value>操作系统</value>
+            </array>
+        </property>
+
+        <!--list类型注入-->
+        <property name="list">
+            <list>
+                <value>张三</value>
+                <value>法外狂徒</value>
+            </list>
+        </property>
+
+        <!--map类型注入-->
+        <property name="map">
+            <map>
+                <entry key="JAVA" value="java"/>
+                <entry key="CPP" value="cpp"/>
+            </map>
+        </property>
+
+        <!--list集合类型，值为对象形式的注入-->
+        <property name="courseList">
+            <list>
+                <ref bean="course1"/>
+                <ref bean="course2"/>
+                <ref bean="course3"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--创建多个course对象-->
+    <bean id="course1" class="com.me.collectiontype.Course">
+        <property name="name" value="os"/>
+    </bean>
+    <bean id="course2" class="com.me.collectiontype.Course">
+        <property name="name" value="database"/>
+    </bean>
+    <bean id="course3" class="com.me.collectiontype.Course">
+        <property name="name" value="network"/>
+    </bean>
+</beans>

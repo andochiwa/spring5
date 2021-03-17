@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--级联赋值-->
+    <bean id="employee" class="com.me.bean.Employee">
+        <!--设置普通属性-->
+        <property name="name" value="lucy"/>
+        <property name="gend" value="女"/>
+        <!--级联赋值-->
+        <property name="department" ref="department"/>
+        <!--也可以直接给对象属性赋值，需要生成get方法-->
+        <property name="department.name" value="安保部"/>
+    </bean>
+    <bean id="department" class="com.me.bean.Department">
+        <property name="name" value="财务部"/>
+    </bean>
+</beans>

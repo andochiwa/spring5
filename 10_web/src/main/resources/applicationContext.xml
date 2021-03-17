@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--配置数据库连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${mysql.url}"/>
+        <property name="password" value="${mysql.password}"/>
+        <property name="username" value="${mysql.username}"/>
+        <property name="maxActive" value="${mysql.maxActive}"/>
+    </bean>
+
+    <!--声明mybatis中所提供的SqlSessionFactoryBean类，这个类的内部创建SqlSessionFactory-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--set注入，把数据库连接池赋给了dataSource属性-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--mybatis主配置文件的位置
+            configLocation为Resource类型
+            赋值使用value，指定文件路径，使用classpath:来表示文件的配置
+        -->
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+    </bean>
+
+    <!--创建dao对象，使用SqlSession的getMapper()
+        MapperScannerConfigurer:在内部调用getMapper()生成每个dao接口的代理对象
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定SqlSessionFactory对象的id-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+        <!--指定包名
+            MapperScannerConfigurer会扫描这个包中的所有接口，把每个接口都执行一次getMapper()方法
+            得到每个接口的dao对象，创建好的dao对象放进到spring的容器中
+        -->
+        <property name="basePackage" value="com.me.dao"/>
+    </bean>
+
+    <!--声明service-->
+    <bean id="studentService" class="com.me.service.impl.StudentServiceImpl">
+        <property name="studentDao" ref="studentDao"/>
+    </bean>
+</beans>
